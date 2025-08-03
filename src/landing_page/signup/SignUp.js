@@ -47,7 +47,7 @@ const handleSubmit = async (event) => {
       // Check for the success property from your backend response
       if (data.success) {
         // Redirect to the dashboard. The browser now has the auth cookie.
-        window.location.href = 'http://localhost:3000';
+        window.location.href = 'https://d-pravah-dashboard.vercel.app';
       } else {
         alert(data.message); // Show error message from backend (e.g., "User already exists")
       }

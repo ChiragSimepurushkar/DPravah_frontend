@@ -42,7 +42,7 @@ const Login = () => {
       // Check for the success property from your backend response
       if (data.success) {
         // Redirect to the dashboard project. The browser automatically has the cookie.
-        window.location.href = 'http://localhost:3000';
+        window.location.href = 'https://d-pravah-dashboard.vercel.app';
       } else {
         alert(data.message); // Show error message from backend
       }
