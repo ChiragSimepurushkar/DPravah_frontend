@@ -5,14 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import api from '../../api/axiosConfig';
 
 
-const Signup = () => {
-  // const navigate = useNavigate();
+const Login = () => {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
-    username: "",
   });
-  const { email, password, username } = inputValue;
+  const { email, password } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -27,40 +26,42 @@ const Signup = () => {
     });
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: "bottom-right",
+      position: "bottom-left",
     });
 
-const handleSubmit = async (event) => {
+ const handleSubmit = async (event) => {
     event.preventDefault();
-    const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
 
+    
     try {
-      // Use your configured 'api' instance to call the /signup endpoint
-      const { data } = await api.post('/signup', { 
-        username, 
-        email, 
-        password 
-      });
+      // Use your configured 'api' instance
+      const { data } = await api.post('/login', { email, password });
 
       // Check for the success property from your backend response
       if (data.success) {
-        // Redirect to the dashboard. The browser now has the auth cookie.
+        // Redirect to the dashboard project. The browser automatically has the cookie.
         window.location.href = 'http://localhost:3000';
       } else {
-        alert(data.message); // Show error message from backend (e.g., "User already exists")
+        alert(data.message); // Show error message from backend
       }
     } catch (error) {
-      console.error('Signup failed:', error);
-      alert('Signup failed. Please try again.');
+      console.error('Login failed:', error);
+      alert('Login failed. Please try again.');
     }
-  };
+  
 
+    setInputValue({
+      ...inputValue,
+      email: "",
+      password: "",
+    });
+  };
 
   return (
     <div className="form_container">
-      <h2>Signup Account</h2>
+      <h2>Login Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
@@ -69,16 +70,6 @@ const handleSubmit = async (event) => {
             name="email"
             value={email}
             placeholder="Enter your email"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            placeholder="Enter your username"
             onChange={handleOnChange}
           />
         </div>
@@ -94,7 +85,7 @@ const handleSubmit = async (event) => {
         </div>
         <button type="submit">Submit</button>
         <span>
-          Already have an account? <Link to={"/login"}>Login</Link>
+          Already have an account? <Link to={"/signup"}>Signup</Link>
         </span>
       </form>
       <ToastContainer />
@@ -102,4 +93,4 @@ const handleSubmit = async (event) => {
   );
 };
 
-export default Signup;
+export default Login;
