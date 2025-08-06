@@ -42,13 +42,14 @@ const Login = () => {
       // Check for the success property from your backend response
       if (data.success) {
         // Redirect to the dashboard project. The browser automatically has the cookie.
-        window.location.href = 'https://d-pravah-dashboard.vercel.app';
+        // window.location.href = 'https://d-pravah-dashboard.vercel.app';
+        window.location.href = `https://d-pravah-dashboard.vercel.app/?token=${data.token}`;
       } else {
         alert(data.message); // Show error message from backend
       }
     } catch (error) {
       console.error('Login failed:', error);
-      alert('Login failed. Please try again.');
+      handleError('Login failed. Please try again.');
     }
   
 
