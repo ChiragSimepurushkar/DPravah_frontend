@@ -45,11 +45,12 @@ const handleSubmit = async (event) => {
       });
 
       // Check for the success property from your backend response
-      if (data.success) {
+      if (data.success && data.token) {
+        localStorage.setItem("authToken", data.token);
         // Redirect to the dashboard. The browser now has the auth cookie.
         window.location.href = 'https://d-pravah-dashboard.vercel.app';
       } else {
-        alert(data.message); // Show error message from backend (e.g., "User already exists")
+        alert(data.message|| "SignUp Failed."); // Show error message from backend (e.g., "User already exists")
       }
     } catch (error) {
       console.error('Signup failed:', error);
