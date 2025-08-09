@@ -88,7 +88,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/login",
+        "https://d-pravah-backend.vercel.app/",
         {
           ...inputValue,
         },
@@ -98,6 +98,7 @@ const Login = () => {
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
+        console.log('✅ Success is true. Preparing to redirect...');
         setTimeout(() => {
           window.location.href = "http://localhost:3001/"; 
         }, 1000);
