@@ -102,16 +102,16 @@ const Signup = () => {
         }, 1000);
       } else {
         handleError(message);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setInputValue({
+        setInputValue({
       ...inputValue,
       email: "",
       password: "",
       username: "",
     });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
