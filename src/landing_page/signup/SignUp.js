@@ -88,7 +88,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/signup",
+        "https://d-pravah-backend.vercel.app/signup",
         {
           ...inputValue,
         },
@@ -98,7 +98,7 @@ const Signup = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-         window.location.href = "http://localhost:3001"; 
+         window.location.href = "https://d-pravah-dashboard.vercel.app/"; 
         }, 1000);
       } else {
         handleError(message);

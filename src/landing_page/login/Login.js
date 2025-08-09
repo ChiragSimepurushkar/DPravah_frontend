@@ -100,7 +100,7 @@ const Login = () => {
         handleSuccess(message);
         console.log('✅ Success is true. Preparing to redirect...');
         setTimeout(() => {
-          window.location.href = "http://localhost:3001/"; 
+          window.location.href = "https://d-pravah-dashboard.vercel.app/"; 
         }, 1000);
       } else {
         handleError(message);
