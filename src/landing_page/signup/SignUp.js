@@ -5,8 +5,62 @@ import { ToastContainer, toast } from "react-toastify";
 import api from '../../api/axiosConfig';
 
 
+// const Signup = () => {
+//   // const navigate = useNavigate();
+//   const [inputValue, setInputValue] = useState({
+//     email: "",
+//     password: "",
+//     username: "",
+//   });
+//   const { email, password, username } = inputValue;
+//   const handleOnChange = (e) => {
+//     const { name, value } = e.target;
+//     setInputValue({
+//       ...inputValue,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleError = (err) =>
+//     toast.error(err, {
+//       position: "bottom-left",
+//     });
+//   const handleSuccess = (msg) =>
+//     toast.success(msg, {
+//       position: "bottom-right",
+//     });
+
+// const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     // const name = event.target.name.value;
+//     // const email = event.target.email.value;
+//     // const password = event.target.password.value;
+
+//     try {
+//       // Use your configured 'api' instance to call the /signup endpoint
+//       const { data } = await api.post('/signup', { 
+//         username, 
+//         email, 
+//         password 
+//       });
+
+//       // Check for the success property from your backend response
+//       if (data.success && data.token) {
+//         localStorage.setItem("authToken", data.token);
+//         // Redirect to the dashboard. The browser now has the auth cookie.
+//         // window.location.href = 'https://d-pravah-dashboard.vercel.app';
+//         window.location.href = `https://d-pravah-dashboard.vercel.app/?token=${data.token}`;
+//       } else {
+//         alert(data.message|| "SignUp Failed."); // Show error message from backend (e.g., "User already exists")
+//       }
+//     } catch (error) {
+//       console.error('Signup failed:', error);
+//       handleError('Signup failed. Please try again.');
+//     }
+//   };
+
 const Signup = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -30,35 +84,35 @@ const Signup = () => {
       position: "bottom-right",
     });
 
-const handleSubmit = async (event) => {
-    event.preventDefault();
-    // const name = event.target.name.value;
-    // const email = event.target.email.value;
-    // const password = event.target.password.value;
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      // Use your configured 'api' instance to call the /signup endpoint
-      const { data } = await api.post('/signup', { 
-        username, 
-        email, 
-        password 
-      });
-
-      // Check for the success property from your backend response
-      if (data.success && data.token) {
-        localStorage.setItem("authToken", data.token);
-        // Redirect to the dashboard. The browser now has the auth cookie.
-        // window.location.href = 'https://d-pravah-dashboard.vercel.app';
-        window.location.href = `https://d-pravah-dashboard.vercel.app/?token=${data.token}`;
+      const { data } = await axios.post(
+        "http://localhost:3002/signup",
+        {
+          ...inputValue,
+        },
+        { withCredentials: true }
+      );
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+         window.location.href = "http://localhost:3001"; 
+        }, 1000);
       } else {
-        alert(data.message|| "SignUp Failed."); // Show error message from backend (e.g., "User already exists")
+        handleError(message);
       }
     } catch (error) {
-      console.error('Signup failed:', error);
-      handleError('Signup failed. Please try again.');
+      console.log(error);
     }
+    setInputValue({
+      ...inputValue,
+      email: "",
+      password: "",
+      username: "",
+    });
   };
-
 
   return (
     <div className="form_container">

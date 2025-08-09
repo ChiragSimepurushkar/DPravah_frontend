@@ -5,8 +5,63 @@ import { ToastContainer, toast } from "react-toastify";
 import api from '../../api/axiosConfig';
 
 
+// const Login = () => {
+//   const navigate = useNavigate();
+//   const [inputValue, setInputValue] = useState({
+//     email: "",
+//     password: "",
+//   });
+//   const { email, password } = inputValue;
+//   const handleOnChange = (e) => {
+//     const { name, value } = e.target;
+//     setInputValue({
+//       ...inputValue,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleError = (err) =>
+//     toast.error(err, {
+//       position: "bottom-left",
+//     });
+//   const handleSuccess = (msg) =>
+//     toast.success(msg, {
+//       position: "bottom-left",
+//     });
+
+//  const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     const email = event.target.email.value;
+//     const password = event.target.password.value;
+
+    
+//     try {
+//       // Use your configured 'api' instance
+//       const { data } = await api.post('/login', { email, password });
+
+//       // Check for the success property from your backend response
+//       if (data.success) {
+//         // Redirect to the dashboard project. The browser automatically has the cookie.
+//         // window.location.href = 'https://d-pravah-dashboard.vercel.app';
+//         window.location.href = `https://d-pravah-dashboard.vercel.app/?token=${data.token}`;
+//       } else {
+//         alert(data.message); // Show error message from backend
+//       }
+//     } catch (error) {
+//       console.error('Login failed:', error);
+//       handleError('Login failed. Please try again.');
+//     }
+  
+
+//     setInputValue({
+//       ...inputValue,
+//       email: "",
+//       password: "",
+//     });
+//   };
+
 const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -29,36 +84,36 @@ const Login = () => {
       position: "bottom-left",
     });
 
- const handleSubmit = async (event) => {
-    event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      // Use your configured 'api' instance
-      const { data } = await api.post('/login', { email, password });
-
-      // Check for the success property from your backend response
-      if (data.success) {
-        // Redirect to the dashboard project. The browser automatically has the cookie.
-        // window.location.href = 'https://d-pravah-dashboard.vercel.app';
-        window.location.href = `https://d-pravah-dashboard.vercel.app/?token=${data.token}`;
+      const { data } = await axios.post(
+        "http://localhost:3002/login",
+        {
+          ...inputValue,
+        },
+        { withCredentials: true }
+      );
+      console.log(data);
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          window.location.href = "http://localhost:3001/"; 
+        }, 1000);
       } else {
-        alert(data.message); // Show error message from backend
+        handleError(message);
       }
     } catch (error) {
-      console.error('Login failed:', error);
-      handleError('Login failed. Please try again.');
+      console.log(error);
     }
-  
-
     setInputValue({
       ...inputValue,
       email: "",
       password: "",
     });
   };
+
 
   return (
     <div className="form_container">
