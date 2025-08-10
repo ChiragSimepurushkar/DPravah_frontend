@@ -7,7 +7,7 @@ function Footer() {
             <div className='row mt-5'>
                 <div className='col'>
                     <img src="media/images/logo.svg" alt="logo" style={{ width: "50%" }} className='mb-3'/>
-                    <p>&copy;2025, Not DPravah Broking Ltd. All rights reserved.</p>
+                    <p>&copy;2025,DPravah Broking Ltd. All rights reserved.</p>
                 </div>
                 <div className='col'>
                     <p>Company</p>
